@@ -5,16 +5,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./dropzone.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  <link rel="stylesheet" href="./assets/css/main.css">
   <title>Data Transfer</title>
 </head>
 
 <body>
-  <form action="./file-upload.php" class="dropzone" id="my-awesome-dropzone"></form>
-  <form action="./file-upload.php" class="dropzone" id="my-awesome-dropzone"></form>
+  <!-- <form action="./test.php" class="dropzone" id="elekDropzone" multiple></form> -->
+  <!-- <form action="test.php" class="dropzone" id="attDropzone">
+    
+  </form> -->
+  
+  <form action="./test.php" method="POST" enctype="multipart/form-data">
+    <h1>ATT Files</h1>
+    <input id="filesATT" name="attFile[]" type="file" multiple/>
+
+    <h1>ELEK Files</h1>
+    <input id="filesELEK" name="elekFile[]" type="file" multiple/><br>
+    <input type="submit" value="Submit" class="btn btn-submit">
+  </form>
+
+
   <!-- <div id="elekDropzone" class="dropzone"></div> -->
-  <script src="./assets/js/dropzone.js"></script>
-  <script src="./assets/js/main.js"></script>
 </body>
+<!-- <script>
+  $(document).ready(function () {
+    $('.tooltipped').tooltip({ delay: 50 });
+  });
+</script> -->
+<!-- <script src="./assets/js/dropzone.js"></script> -->
+<script src="./assets/js/main.js"></script>
 
 </html>

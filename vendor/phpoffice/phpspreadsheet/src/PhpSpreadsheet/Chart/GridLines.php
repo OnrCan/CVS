@@ -27,7 +27,7 @@ class GridLines extends Properties
             'alpha' => 0,
         ],
         'style' => [
-            'width' => '9525',
+            'width' => '0.25',
             'compound' => self::LINE_STYLE_COMPOUND_SIMPLE,
             'dash' => self::LINE_STYLE_DASH_SOLID,
             'cap' => self::LINE_STYLE_CAP_FLAT,
@@ -51,7 +51,7 @@ class GridLines extends Properties
         'color' => [
             'type' => self::EXCEL_COLOR_TYPE_STANDARD,
             'value' => 'black',
-            'alpha' => 85,
+            'alpha' => 0,
         ],
         'size' => [
             'sx' => null,

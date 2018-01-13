@@ -7,9 +7,12 @@ if (!$_FILES) {
 
 require 'vendor/autoload.php';
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+// use PhpOffice\PhpSpreadsheet\Settings;
+// Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+// use PhpOffice\PhpSpreadsheet\Reader\IReader;
 
 // $G42 = (((string)htmlspecialchars($_POST["F27"])) == "0.0" ? 'NP' : htmlspecialchars($_POST["F27"]));
 // $H42 = (((string)htmlspecialchars($_POST["F28"])) == "0.0" ? 'NP' : htmlspecialchars($_POST["F28"]));
@@ -26,8 +29,8 @@ $outputdir = "./outputs/" . $uniqueFolderNameForEachUser . "/";
 
 
 
-
-for($j = 0; $j < count($_FILES['attFile']['name']); $j++) {
+/* ATT files moved to  */
+for ($j = 0; $j < count($_FILES['attFile']['name']); $j++) {
   $uploadfileATT = $uploaddir . basename($_FILES['attFile']['name'][$j]);
   $outputFileATT = $outputdir . basename($_FILES['attFile']['name'][$j]);
 
@@ -65,59 +68,70 @@ for ($i = 0; $i < count($_FILES['elekFile']['name']); $i++) {
   $elekSTR = substr($_FILES['elekFile']['name'][$i], 4);
 
   // isimleri kontrol ediyorum
-  for($j = 0; $j < count($_FILES['attFile']['name']); $j++) {
+  for ($j = 0; $j < count($_FILES['attFile']['name']); $j++) {
 
     $originalATT = $uploaddir . basename($_FILES['attFile']['name'][$j]);
-    $spreadsheetATT = \PhpOffice\PhpSpreadsheet\IOFactory::load($originalATT);
-    $originalSheet = $spreadsheetATT->getActiveSheet();
-    $F27 = $originalSheet->getCell('F27')->getCalculatedValue();
-    $F28 = $originalSheet->getCell('F28')->getCalculatedValue();
+    /* $spreadsheetATT = \PhpOffice\PhpSpreadsheet\IOFactory::load($originalATT);
+    $originalSheet = $spreadsheetATT->getActiveSheet(); */
+      $readerATT = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($originalATT);
+      // $readerATT->setIncludeCharts(true);
+      $spreadsheetATT = $readerATT->load($originalATT);
+      $sheetOriginalATT = $spreadsheetATT->getActiveSheet();
 
-    if($F27 == '') {
+    $F27 = $sheetOriginalATT->getCell('F27')->getCalculatedValue();
+    $F28 = $sheetOriginalATT->getCell('F28')->getCalculatedValue();
+    /* $F27 = $originalSheet->getCell('F27')->getCalculatedValue();
+    $F28 = $originalSheet->getCell('F28')->getCalculatedValue(); */
+
+    if ($F27 == '') {
       // echo 'F27' . $F27;
       $F27 = 'NP';
     }
-    if($F28 == '') {
+    if ($F28 == '') {
       // echo 'F28' . $F28;
       $F28 = 'NP';
     }
 
-    
+
     $attSTR = substr($_FILES['attFile']['name'][$j], 3) . 'x';
 
     // Varsa, yabistir
-    if($elekSTR == $attSTR) {
+    if ($elekSTR == $attSTR) {
       // echo 'esitmis';
       // dosyalarin icerikleri degisiyor
-      $spreadsheetELEK = \PhpOffice\PhpSpreadsheet\IOFactory::load($uploadfile);
-      // $spreadsheetATT = \PhpOffice\PhpSpreadsheet\IOFactory::load($originalATT);
+
+      /* $spreadsheetELEK = \PhpOffice\PhpSpreadsheet\IOFactory::load($uploadfile); */
+      $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($uploadfile, 'Xlsx');
       // $reader->setIncludeCharts(true);
+      $spreadsheetELEK = $reader->load($uploadfile);
+      // $spreadsheetATT = \PhpOffice\PhpSpreadsheet\IOFactory::load($originalATT);
       // $spreadsheet = $reader->load($uploadfile);
-    
+      include './chart.php';
       $sheetELEK = $spreadsheetELEK->getActiveSheet();
       $sheetELEK->setCellValue('G42', $F27)
         ->setCellValue('H42', $F28);
-    
+      
       // // degisen dosyalar xlsx olarak outputs'a indirilmek uzere yaziyor
       $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetELEK, "Xlsx");
-      $writer->setIncludeCharts(true);
+      // $writer->setIncludeCharts(true);
       $writer->save($outputFile);
+
       break;
-      
+
     } else {
       // echo 'esit degilmis';
       // dosyalarin icerikleri degisiyor
       $spreadsheetNotELEK = \PhpOffice\PhpSpreadsheet\IOFactory::load($uploadfile);
       // $reader->setIncludeCharts(true);
       // $spreadsheet = $reader->load($uploadfile);
-    
+
       $sheetELEK = $spreadsheetNotELEK->getActiveSheet();
       $sheetELEK->setCellValue('G42', "NP")
         ->setCellValue('H42', "NP");
     
       // // degisen dosyalar xlsx olarak outputs'a indirilmek uzere yaziyor
       $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetNotELEK, "Xlsx");
-      $writer->setIncludeCharts(true);
+      // $writer->setIncludeCharts(true);
       $writer->save($outputFile);
     }
   }
@@ -127,11 +141,11 @@ for ($i = 0; $i < count($_FILES['elekFile']['name']); $i++) {
 $zipname = 'ELEK-Files.zip';
 $zip = new ZipArchive;
 if ($zip->open($zipname, ZipArchive::CREATE) === true) {
-  if ($handle = opendir($uploaddir)) {
+  if ($handle = opendir($outputdir)) {
     // Add all files inside the directory
     while (false !== ($entry = readdir($handle))) {
-      if ($entry != "." && $entry != ".." && !is_dir($uploaddir . '/' . $entry)) {
-        $zip->addFile($uploaddir . '/' . $entry);
+      if ($entry != "." && $entry != ".." && !is_dir($outputdir . '/' . $entry)) {
+        $zip->addFile($outputdir . '/' . $entry);
       }
     }
     closedir($handle);

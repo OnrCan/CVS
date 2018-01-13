@@ -1,8 +1,17 @@
 @import "normalize";
 
-body {
+// body {
+//   display: flex;
+//   position: relative;
+// }
+
+form {
   display: flex;
-  position: relative;
+  flex-direction: column;
+
+  button {
+    align-self: center;
+  }
 }
 
 .dropzone {
@@ -28,3 +37,4 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
+

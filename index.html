@@ -20,29 +20,42 @@
 </head>
 
 <body>
-  <!-- <form action="./test.php" class="dropzone" id="elekDropzone" multiple></form> -->
-  <!-- <form action="test.php" class="dropzone" id="attDropzone">
-    
-  </form> -->
-  
-  <form action="./test.php" method="POST" enctype="multipart/form-data">
-    <h1>ATT Files</h1>
-    <input id="filesATT" name="attFile[]" type="file" multiple/>
 
-    <h1>ELEK Files</h1>
-    <input id="filesELEK" name="elekFile[]" type="file" multiple/><br>
-    <input type="submit" value="Submit" class="btn btn-submit">
+  <form action="" method="POST" enctype="multipart/form-data">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>ATT Files</span>
+        <input id="filesATT" name="attFile[]" type="file" multiple />
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload one or more files">
+      </div>
+    </div>
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>ELEK Files</span>
+        <input id="filesELEK" name="elekFile[]" type="file" multiple />
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload one or more files">
+      </div>
+    </div>
   </form>
+      <button class="btn waves-effect waves-light" type="" name="action" onclick="uploadFiles()">Submit
+        <i class="material-icons right">send</i>
+      </button>
 
+  <div class="progress">
+    <div class="determinate" style="" id='progressBar'></div>
+  </div>
 
-  <!-- <div id="elekDropzone" class="dropzone"></div> -->
+  <form id="templateForm" action="" method="post" style="display: none;">
+    <input id="templateFilesELEK" name="elekFile[]" type="file" multiple />
+    <input id="templateFilesATT" name="attFile[]" type="file" multiple />
+  </form>
 </body>
-<!-- <script>
-  $(document).ready(function () {
-    $('.tooltipped').tooltip({ delay: 50 });
-  });
-</script> -->
 <!-- <script src="./assets/js/dropzone.js"></script> -->
+<script src="./assets/js/md5.min.js"></script>
 <script src="./assets/js/main.js"></script>
 
 </html>

@@ -21,7 +21,7 @@
 
 <body>
 
-  <form action="" method="POST" enctype="multipart/form-data">
+  <form action="./test.php" method="POST" enctype="multipart/form-data">
     <div class="file-field input-field">
       <div class="btn">
         <span>ATT Files</span>
@@ -40,13 +40,13 @@
         <input class="file-path validate" type="text" placeholder="Upload one or more files">
       </div>
     </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
   </form>
-      <button class="btn waves-effect waves-light" type="" name="action" onclick="uploadFiles()">Submit
-        <i class="material-icons right">send</i>
-      </button>
 
   <div class="progress">
-    <div class="determinate" style="" id='progressBar'></div>
+    <div class="determinate" id='progressBar'></div>
   </div>
 
   <form id="templateForm" action="" method="post" style="display: none;">
@@ -56,6 +56,6 @@
 </body>
 <!-- <script src="./assets/js/dropzone.js"></script> -->
 <script src="./assets/js/md5.min.js"></script>
-<script src="./assets/js/main.js"></script>
+<!-- <script src="./assets/js/main.js"></script> -->
 
 </html>

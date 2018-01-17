@@ -3,7 +3,7 @@ var attDropzone = document.getElementById('att-dropzone');
 var submitButton = document.getElementById('elekSubmit');
 
 window.Dropzone.options.elekDropzone = {
-  paramName: 'elekFiles',
+  paramName: 'elekFile',
   // uploadMultiple: true,
   autoProcessQueue: false,
   addRemoveLinks: true,
@@ -16,11 +16,18 @@ window.Dropzone.options.elekDropzone = {
       e.stopPropagation();
       elekzone.processQueue();
     };
+
+    this.on('queuecomplete', function() {
+      // sendDestroy();
+      let sub = document.getElementById('hiddenSubmit');
+      sub.click();
+      this.removeAllFiles();
+    });
   }
 }
 
 window.Dropzone.options.attDropzone = {
-  paramName: 'attFiles',
+  paramName: 'attFile',
   // uploadMultiple: true,
   autoProcessQueue: false,
   addRemoveLinks: true,
@@ -32,32 +39,42 @@ window.Dropzone.options.attDropzone = {
       e.preventDefault();
       e.stopPropagation();
       sendHash();
-      attxone.processQueue();
+      setTimeout(function() {
+        attzone.processQueue();
+      }, 1000)
     });
 
     this.on('queuecomplete', function() {
       submitButton.click();
+      this.removeAllFiles();
+      // window.location = "test.php";
     });
   }
 }
 
 function sendHash() {
-  const hash = md5("ipek60" + Math.floor((Math.random() * 10000) + 0.1) + Math.floor((Math.random() * 10000) + 0.1));
+  const hash = md5('' + Math.floor((Math.random() * 10000) + 0.1) + Math.floor((Math.random() * 10000) + 0.1));
   var uri = "./test.php";
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
 
   xhr.open("POST", uri, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      alert(xhr.responseText); // handle response.
-    }
-  };
   fd.append('hash', hash);
   // Initiate a multipart/form-data upload
   xhr.send(fd);
 }
 
+// function sendDestroy() {
+//   var uri = "./test.php";
+//   var xhrDestroy = new XMLHttpRequest();
+//   var fd = new FormData();
+  
+//   xhrDestroy.open("POST", uri, true);
+//   // xhrDestroy.setRequestHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+//   fd.append('destroy', 'files are done');
+//   // Initiate a multipart/form-data upload
+//   xhrDestroy.send(fd);
+// }
 // function uploadFiles() {
 //   const hash = md5("ipek60" + Math.floor((Math.random() * 10000) + 0.1) + Math.floor((Math.random() * 10000) + 0.1));
 //   // console.log(attFileList);

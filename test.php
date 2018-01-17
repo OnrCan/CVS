@@ -48,9 +48,6 @@ for ($j = 0; $j < count($_FILES['attFile']['name']); $j++) {
 
 
 
-
-
-
 for ($i = 0; $i < count($_FILES['elekFile']['name']); $i++) {
   $uploadfile = $uploaddir . basename($_FILES['elekFile']['name'][$i]);
   $outputFile = $outputdir . basename($_FILES['elekFile']['name'][$i]);

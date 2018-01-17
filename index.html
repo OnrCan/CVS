@@ -21,7 +21,14 @@
 
 <body>
 
-  <form action="./test.php" method="POST" enctype="multipart/form-data">
+
+  <form action="./test.php" class="dropzone" id="elek-dropzone"></form>
+  <form action="./test.php" class="dropzone" id="att-dropzone">
+    <button type="submit" btn waves-effect waves-light>Gönder</button>
+  </form>
+  <button id='elekSubmit' style="display: none;"></button>
+
+  <!-- <form action="./test.php" method="POST" enctype="multipart/form-data">
     <div class="file-field input-field">
       <div class="btn">
         <span>ATT Files</span>
@@ -43,19 +50,14 @@
     <button class="btn waves-effect waves-light" type="submit" name="action">Submit
       <i class="material-icons right">send</i>
     </button>
-  </form>
+  </form> -->
 
   <div class="progress">
     <div class="determinate" id='progressBar'></div>
   </div>
-
-  <form id="templateForm" action="" method="post" style="display: none;">
-    <input id="templateFilesELEK" name="elekFile[]" type="file" multiple />
-    <input id="templateFilesATT" name="attFile[]" type="file" multiple />
-  </form>
 </body>
-<!-- <script src="./assets/js/dropzone.js"></script> -->
+<script src="./assets/js/dropzone.js"></script>
 <script src="./assets/js/md5.min.js"></script>
-<!-- <script src="./assets/js/main.js"></script> -->
+<script src="./assets/js/main.js"></script>
 
 </html>

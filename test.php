@@ -196,14 +196,28 @@ function transferCellData($attFile, $elekFile, $output)
   }
 
   $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($elekFile, 'Xlsx');
+
+  //
+  // $reader->setIncludeCharts(true);
+  //
+  
   $spreadsheetELEK = $reader->load($elekFile);
-  // include './chart.php';
   $sheetELEK = $spreadsheetELEK->getActiveSheet();
   $sheetELEK->setCellValue('G42', $F27)
-    ->setCellValue('H42', $F28);
-  $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetELEK, "Xlsx");
-  $writer->save($output);
+  ->setCellValue('H42', $F28);
 
+  // 
+  include './chart.php';
+  $sheetELEK->addChart($chart);
+  // 
+  
+  $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetELEK, "Xlsx");
+
+  //
+  $writer->setIncludeCharts(true);
+  // 
+
+  $writer->save($output);
   unlink($elekFile);
 }
 
@@ -213,7 +227,18 @@ function setCellToNP($file, $output)
   $sheetELEK = $spreadsheetNotELEK->getActiveSheet();
   $sheetELEK->setCellValue('G42', "NP")
     ->setCellValue('H42', "NP");
+
+  // 
+  include './chart.php';
+  $sheetELEK->addChart($chart);
+  // 
+
   $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetNotELEK, "Xlsx");
+
+  //
+  $writer->setIncludeCharts(true);
+  // 
+
   $writer->save($output);
 }
 

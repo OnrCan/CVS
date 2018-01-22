@@ -1,10 +1,14 @@
 var elekDropzone = document.getElementById('elek-dropzone');
 var attDropzone = document.getElementById('att-dropzone');
 var submitButton = document.getElementById('elekSubmit');
+var processStatusText = document.getElementById('processStatus');
+// var resetElekButton = document.getElementById('resetElekFiles');
+// var resetAttButton = document.getElementById('resetAttFiles');
 
 window.Dropzone.options.elekDropzone = {
   paramName: 'elekFile',
   // uploadMultiple: true,
+  dictDefaultMessage: "ELEK FILES HERE",
   autoProcessQueue: false,
   addRemoveLinks: true,
   parallelUploads: 5000,
@@ -21,7 +25,14 @@ window.Dropzone.options.elekDropzone = {
       // sendDestroy();
       let sub = document.getElementById('hiddenSubmit');
       sub.click();
-      this.removeAllFiles();
+      elekzone.removeAllFiles();
+      processStatusText.innerHTML = `
+        <strike>ATT Files are uploading...</strike><br>
+        <strike>ELEK Files are uploading...</strike><br>
+        File uploading has been completed. Please wait for the server response!
+        `;
+      // resetElekButton.style.opacity = 1;
+      // resetElekButton.onclick = this.removeAllFiles;
     });
   }
 }
@@ -29,12 +40,17 @@ window.Dropzone.options.elekDropzone = {
 window.Dropzone.options.attDropzone = {
   paramName: 'attFile',
   // uploadMultiple: true,
+  dictDefaultMessage: "ATT FILES HERE",
   autoProcessQueue: false,
   addRemoveLinks: true,
   parallelUploads: 5000,
   init: function () {
     var attzone = this;
     this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+      $('#modal1').modal('open');
+      processStatusText.innerHTML = `
+        ATT Files are uploading...
+      `;
       // Make sure that the form isn't actually being sent.
       e.preventDefault();
       e.stopPropagation();
@@ -46,8 +62,13 @@ window.Dropzone.options.attDropzone = {
 
     this.on('queuecomplete', function() {
       submitButton.click();
-      this.removeAllFiles();
-      // window.location = "test.php";
+      processStatusText.innerHTML = `
+        <strike>ATT Files are uploading...</strike><br>
+        ELEK Files are uploading...
+        `;
+      attzone.removeAllFiles();
+      // resetAttButton.style.opacity = 1;
+      // resetAttButton.onclick = this.removeAllFiles;
     });
   }
 }

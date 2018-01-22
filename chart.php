@@ -57,7 +57,7 @@ $legend = new Legend(Legend::POSITION_TOPRIGHT, null, false);
 
 $title = new Title('');
 $yAxisLabel = new Title('Elekten geçen (%)');
-$xAxisLabel = new Title('Açıklık (mm)');
+$xAxisLabel = new Title('Açıklık (mm Azalan)');
 
 //	Create the chart
 $chart = new Chart(

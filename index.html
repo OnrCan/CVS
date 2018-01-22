@@ -5,63 +5,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
   <link rel="stylesheet" href="./dropzone.css">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
+  <link rel="stylesheet" href="./assets/css/materialize.css">
   <link rel="stylesheet" href="./assets/css/main.css">
   <title>Data Transfer</title>
 </head>
 
 <body>
+  <div class="divFormsWrapper">
+    <form action="./test.php" class="dropzone" id="elek-dropzone"></form>
+    <form action="./test.php" class="dropzone" id="att-dropzone">
+      <button type="submit" class="btn waves-effect waves-light fixed-action-button modal-trigger green" data-target="modal1">Gönder</button>
+    </form>
+  </div>
+  <div class="progress">
+    <div class="determinate" id='progressBar'></div>
+  </div>
 
-
-  <form action="./test.php" class="dropzone" id="elek-dropzone"></form>
-  <form action="./test.php" class="dropzone" id="att-dropzone">
-    <button type="submit" btn waves-effect waves-light>Gönder</button>
-  </form>
+  <!-- <button class="btn waves-effect waves-light fixed-action-button red" id="resetElekFiles">Reset ELEK Container</button>
+  <button class="btn waves-effect waves-light fixed-action-button red" id="resetAttFiles">Reset ATT Container</button> -->
   <button id='elekSubmit' style="display: none;"></button>
-
   <form action="./test.php" method="post" hidden>
     <input type="text" name="areFilesDone">
     <button type="submit" id='hiddenSubmit'></button>
   </form>
-  <!-- <form action="./test.php" method="POST" enctype="multipart/form-data">
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>ATT Files</span>
-        <input id="filesATT" name="attFile[]" type="file" multiple />
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload one or more files">
-      </div>
-    </div>
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>ELEK Files</span>
-        <input id="filesELEK" name="elekFile[]" type="file" multiple />
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload one or more files">
-      </div>
-    </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
-  </form> -->
 
-  <div class="progress">
-    <div class="determinate" id='progressBar'></div>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Processing...</h4>
+      <p id="processStatus"></p>
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
   </div>
+
+  <script src="./assets/js/jquery-3.2.1.min.js"></script>
+  <script src="./assets/js/materialize.js"></script>
+  <script src="./assets/js/dropzone.min.js"></script>
+  <script src="./assets/js/md5.min.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.modal').modal();
+    })
+  </script>
 </body>
-<script src="./assets/js/dropzone.js"></script>
-<script src="./assets/js/md5.min.js"></script>
-<script src="./assets/js/main.js"></script>
 
 </html>

@@ -1,27 +1,17 @@
-@import "normalize";
+@import "./normalize";
 
-// body {
-//   display: flex;
-//   position: relative;
-// }
-
-form {
+body {
   display: flex;
+  position: relative;
   flex-direction: column;
+}
 
-  button {
-    align-self: center;
-  }
+.divFormsWrapper {
+  display: flex;
 }
 
 .dropzone {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-
-  width: 50%;
+  width: calc(50% - 30px);
   margin: 15px;
   border: 3px dashed #CCC;
   border-radius: 5px;
@@ -30,11 +20,19 @@ form {
 }
 
 .fixed-action-button {
-  opacity: 0;
-  transition: .3s ease;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  transition: .3s ease;
+  z-index: 99;
 }
+// #resetElekFiles {
+//   top: calc(50% + 50px);
+//   opacity: 0;
+// }
+// #resetAttFiles {
+//   top: calc(50% + 100px);
+//   opacity: 0;
+// }
 

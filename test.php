@@ -109,31 +109,21 @@ function transferCellData($attFile, $elekFile, $output)
   $sheetOriginalATT = $spreadsheetATT->getActiveSheet();
   $F27 = $sheetOriginalATT->getCell('F27')->getCalculatedValue();
   $F28 = $sheetOriginalATT->getCell('F28')->getCalculatedValue();
-  if ($F27 == '') {
-    $F27 = 'NP';
-  }
-  if ($F28 == '') {
-    $F28 = 'NP';
-  }
+  if ($F27 == '') { $F27 = 'NP'; }
+  if ($F28 == '') { $F28 = 'NP'; }
 
   $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($elekFile, 'Xlsx');
   
   $spreadsheetELEK = $reader->load($elekFile);
   $sheetELEK = $spreadsheetELEK->getActiveSheet();
   $sheetELEK->setCellValue('G42', $F27)
-  ->setCellValue('H42', $F28);
+            ->setCellValue('H42', $F28);
 
-  // 
+  include './checkelek.php';
   include './chart.php';
-  $sheetELEK->addChart($chart);
-  // 
   
   $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetELEK, "Xlsx");
-
-  //
   $writer->setIncludeCharts(true);
-  // 
-
   $writer->save($output);
   unlink($elekFile);
 }
@@ -143,18 +133,14 @@ function setCellToNP($file, $output)
   $spreadsheetNotELEK = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
   $sheetELEK = $spreadsheetNotELEK->getActiveSheet();
   $sheetELEK->setCellValue('G42', "NP")
-    ->setCellValue('H42', "NP");
+            ->setCellValue('H42', "NP");
 
-  // 
+  include './checkelek.php';
   include './chart.php';
+
   $sheetELEK->addChart($chart);
-  // 
 
   $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetNotELEK, "Xlsx");
-
-  //
   $writer->setIncludeCharts(true);
-  // 
-
   $writer->save($output);
 }

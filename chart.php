@@ -76,3 +76,4 @@ $chart->setTopLeftPosition('A13');
 $chart->setBottomRightPosition('K31');
 
 //	Add the chart to the worksheet
+$sheetELEK->addChart($chart);

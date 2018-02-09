@@ -1,4 +1,5 @@
 {
   "eslint.enable": false,
-  "editor.lineNumbers": "interval"
+  "editor.lineNumbers": "off",
+  "explorer.sortOrder": "type"
 }
